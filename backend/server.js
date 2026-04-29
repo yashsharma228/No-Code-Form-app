@@ -42,6 +42,14 @@ app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    service: "nocode-form-backend",
+    message: "Backend is running. Use /api/health to verify API health.",
+  });
+});
+
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", database: "mysql" });
 });
