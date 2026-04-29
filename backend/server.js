@@ -17,19 +17,31 @@ const PORT = process.env.PORT || 5000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const frontendBuildPath = path.resolve(__dirname, "..", "build");
+const corsAllowAll = process.env.CORS_ALLOW_ALL === "true";
+const normalizeOrigin = (origin) => origin.replace(/\/$/, "");
 const allowedOrigins = (process.env.CLIENT_ORIGIN || "http://localhost:3000")
   .split(",")
   .map((origin) => origin.trim())
+  .map((origin) => normalizeOrigin(origin))
   .filter(Boolean);
 
 const corsOptions = {
   origin(origin, callback) {
-    if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+    console.log("Request Origin:", origin || "<no-origin>");
+
+    if (corsAllowAll) {
       callback(null, true);
       return;
     }
 
-    callback(new Error("Origin not allowed by CORS"));
+    const normalizedOrigin = origin ? normalizeOrigin(origin) : origin;
+
+    if (!normalizedOrigin || allowedOrigins.length === 0 || allowedOrigins.includes(normalizedOrigin)) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error(`CORS blocked: ${origin}`));
   },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
