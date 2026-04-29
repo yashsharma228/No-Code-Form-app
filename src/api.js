@@ -1,13 +1,27 @@
 const API_BASE = (process.env.REACT_APP_API_BASE_URL || "/api").replace(/\/$/, "");
 const PUBLIC_APP_URL = (process.env.REACT_APP_PUBLIC_APP_URL || "").trim().replace(/\/$/, "");
 
+function isLocalhostUrl(value) {
+  return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(value);
+}
+
 export function getPublicAppUrl() {
-  if (PUBLIC_APP_URL) {
-    return PUBLIC_APP_URL;
+  if (typeof window !== "undefined") {
+    const runtimeOrigin = window.location.origin;
+
+    if (PUBLIC_APP_URL) {
+      if (isLocalhostUrl(PUBLIC_APP_URL) && !isLocalhostUrl(runtimeOrigin)) {
+        return runtimeOrigin;
+      }
+
+      return PUBLIC_APP_URL;
+    }
+
+    return runtimeOrigin;
   }
 
-  if (typeof window !== "undefined") {
-    return window.location.origin;
+  if (PUBLIC_APP_URL) {
+    return PUBLIC_APP_URL;
   }
 
   return "";
