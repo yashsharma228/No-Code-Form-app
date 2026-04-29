@@ -1,0 +1,44 @@
+/* Drop Zone Container */
+.drop-zone {
+  background: #f4f4f4;
+  border: 2px dashed #ccc;
+  padding: 20px;
+  min-height: 150px;
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+  transition: background 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  border-radius: 10px;
+  margin: auto;
+}
+
+/* Highlighted Drop Zone when dragging */
+.drop-zone.over {
+  background: #e0f7fa;
+  border-color: #007bff;
+  color: #007bff;
+}
+
+/* 📱 Mobile Responsiveness */
+@media (max-width: 768px) {
+  .drop-zone {
+      padding: 15px;
+      font-size: 14px;
+      min-height: 120px;
+      max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .drop-zone {
+      padding: 10px;
+      font-size: 13px;
+      min-height: 100px;
+      border-radius: 8px;
+  }
+}

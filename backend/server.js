@@ -1,0 +1,67 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import morgan from "morgan";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { connectDatabase } from "./db.js";
+import formRoutes from "./routes/formRoutes.js";
+import responseRoutes from "./routes/responseRoutes.js";
+import { errorHandler, notFoundHandler } from "./middleware/errorHandlers.js";
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendBuildPath = path.resolve(__dirname, "..", "build");
+const allowedOrigins = (process.env.CLIENT_ORIGIN || "http://localhost:3000")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error("Origin not allowed by CORS"));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
+
+app.options("*", cors(corsOptions));
+app.use(express.json());
+app.use(morgan("dev"));
+
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", database: "mysql" });
+});
+
+app.use("/api/forms", formRoutes);
+app.use("/api/responses", responseRoutes);
+
+if (process.env.NODE_ENV === "production" && fs.existsSync(frontendBuildPath)) {
+  app.use(express.static(frontendBuildPath));
+
+  app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(frontendBuildPath, "index.html"));
+  });
+}
+
+app.use(notFoundHandler);
+app.use(errorHandler);
+
+connectDatabase().then(() => {
+  app.listen(PORT, () => {
+    console.log(`API server listening on port ${PORT}`);
+  });
+});

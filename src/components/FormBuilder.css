@@ -1,0 +1,272 @@
+/* 🔹 Form Builder Container */
+.form-builder-container {
+  display: flex;
+  gap: 24px;
+  padding: 0;
+  flex-wrap: wrap;
+  background: transparent;
+}
+
+/* 🔹 Sidebar for Drag & Drop Elements */
+.sidebar {
+  width: 280px;
+  background: #ffffff;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.sidebar h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+/* 🔹 Main Area - Form Preview */
+.main-area {
+  flex-grow: 1;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  min-width: 400px;
+}
+
+.main-area h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+/* 🔹 Form Preview */
+.form-preview {
+  min-height: 300px;
+  border: 2px dashed #d1d5db;
+  padding: 24px;
+  background: #f9fafb;
+  margin-top: 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.form-preview:hover {
+  border-color: #667eea;
+  background: #f3f4f6;
+}
+
+/* 🔹 Form Fields */
+.form-field {
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  margin: 12px 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.form-field:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+/* 🔹 Input Fields */
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background: white;
+  color: #374151;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 🔹 Textarea Resizing */
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* 🔹 Select Group */
+.select-group {
+  width: 100%;
+}
+
+.select-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+/* 🔹 Checkbox & Radio Groups */
+.checkbox-group,
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.checkbox-group label,
+.radio-group label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.checkbox-label,
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  color: #374151;
+}
+
+.checkbox-label:hover,
+.radio-label:hover {
+  background: #f9fafb;
+}
+
+.checkbox-label input[type="checkbox"],
+.radio-label input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #667eea;
+}
+
+/* 🔹 Remove Button */
+.remove-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.remove-btn:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+/* 🔹 Submit Button */
+.form-preview button[type="submit"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 250px;
+  margin: 20px auto 0;
+  display: block;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.form-preview button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.form-preview button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 📱 Responsive Design */
+
+/* ✅ Tablets & Small Screens */
+@media (max-width: 1024px) {
+  .form-builder-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .main-area {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* ✅ Mobile Devices */
+@media (max-width: 600px) {
+  .form-builder-container {
+    gap: 16px;
+  }
+
+  .sidebar,
+  .main-area {
+    padding: 16px;
+  }
+
+  .form-field {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .form-preview {
+    min-height: 200px;
+    padding: 16px;
+  }
+
+  .remove-btn {
+    align-self: flex-end;
+  }
+}
