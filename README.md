@@ -352,9 +352,11 @@ For a manual Render backend deploy:
 
 - Service Type: Web Service
 - Root Directory: `backend`
-- Build Command: `npm install`
+- Build Command: `npm run build`
 - Start Command: `npm start`
 - Health Check Path: `/api/health`
+
+The backend does not require a compile step. The `build` script exists so Render services configured with `npm run build` succeed consistently.
 
 Recommended Render environment variables:
 
