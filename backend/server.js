@@ -24,6 +24,7 @@ const allowedOrigins = (process.env.CLIENT_ORIGIN || "http://localhost:3000")
   .map((origin) => origin.trim())
   .map((origin) => normalizeOrigin(origin))
   .filter(Boolean);
+const publicAppOrigin = allowedOrigins[0] || "";
 
 const corsOptions = {
   origin(origin, callback) {
@@ -74,6 +75,10 @@ if (process.env.NODE_ENV === "production" && fs.existsSync(frontendBuildPath)) {
 
   app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.join(frontendBuildPath, "index.html"));
+  });
+} else if (process.env.NODE_ENV === "production" && publicAppOrigin) {
+  app.get(/^(?!\/api).+/, (req, res) => {
+    res.redirect(302, `${publicAppOrigin}${req.originalUrl}`);
   });
 }
 

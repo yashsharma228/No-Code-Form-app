@@ -65,6 +65,18 @@ const AdminDashboard = ({ initialSection = "Forms" }) => {
   }, [activeSection, activeForm.id, loadResponses]);
 
   useEffect(() => {
+    if ((activeSection !== "Responses" && activeSection !== "Analytics") || !activeForm.id) {
+      return undefined;
+    }
+
+    const intervalId = window.setInterval(() => {
+      loadResponses(activeForm.id).catch(() => {});
+    }, 15000);
+
+    return () => window.clearInterval(intervalId);
+  }, [activeSection, activeForm.id, loadResponses]);
+
+  useEffect(() => {
     if (!notice) {
       return undefined;
     }
